@@ -1,15 +1,19 @@
 # flexImage.js
 轻量级横向瀑布流插件，无依赖，兼容IE9以上，类似百度图片、谷歌图片展示效果
 
-## 参数：{
+## 参数：
+```
+{
   rowHeight: 200,          // 每行最大高度
   listenResize: false,     // 是否监听窗口大小改变更新layout
   item: '.fleximage-item', // item class类名
   itemObject: 'img'        // item子节点DOM
 }
+```
 
 ## 使用方法：
 ### html:
+```
 <div class="demo">
   <div class="fleximage-item" data-w="219" data-h="180"><img src="./img/1.jpg"></div>
   <div class="fleximage-item" data-w="279" data-h="180"><img src="./img/2.jpg"></div>
@@ -27,7 +31,9 @@
   <div class="fleximage-item" data-w="271" data-h="180"><img src="./img/14.jpg"></div>
   <div class="fleximage-item" data-w="258" data-h="180"><img src="./img/15.jpg"></div>
 </div>
+```
 ### js:
+```
 var flexImage = new FlexImage(document.querySelector('.demo'), {
   rowHeight: 200,
   listenResize: true
@@ -57,7 +63,10 @@ document.querySelector('.btn-append').onclick = function() {
     }
     flexImage.update();
 }
+```
 
 ## 方法
-flexImage.init(); 初始化或重新渲染
-flexImage.update(); 更新，局部更新比init()方法轻量
+```
+flexImage.init(); // 初始化或重新渲染
+flexImage.update(); // 更新，局部更新比init()方法轻量
+```
