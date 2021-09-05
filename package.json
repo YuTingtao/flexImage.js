@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "轻量级横向瀑布流插件，无依赖，兼容IE9以上，类似百度图片、谷歌图片展示效果",
   "github": "https://github.com/YuTingtao/flexImage.js",
-  "main": "gulpfile.js",
+  "main": "dist/js/flexImage.min.js",
   "scripts": {
     "serve": "gulp serve",
     "build": "gulp build"
@@ -25,8 +25,5 @@
     "gulp-imagemin": "^7.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2"
-  },
-  "dependencies": {
-    
   }
 }
