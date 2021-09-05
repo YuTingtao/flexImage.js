@@ -120,13 +120,7 @@
             // 窗口大小改变时是否更新layout
             if (o.listenResize) {
                 function handleResize() {
-                    var timeout = null;
-                    if (!timeout) {
-                        timeout = setTimeout(function() {
-                            _this.setLayout(el, items, o, lastRowFn);
-                            timeout = null;
-                        }, 300);
-                    }
+                    _this.setLayout(el, items, o, lastRowFn);
                 }
                 window.addEventListener('resize', handleResize);
             }
@@ -152,13 +146,7 @@
                 if (o.listenResize) {
                     window.removeEventListener('resize', handleResize);
                     function handleResize() {
-                        var timeout = null;
-                        if (!timeout) {
-                            timeout = setTimeout(function() {
-                                _this.setLayout(el, items, o, lastRowFn);
-                                timeout = null;
-                            }, 300);
-                        }
+                        _this.setLayout(el, items, o, lastRowFn);
                     }
                     window.addEventListener('resize', handleResize);
                 }
