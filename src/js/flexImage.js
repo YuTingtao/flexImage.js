@@ -27,9 +27,7 @@
         this.opt = this.extend(defaults, options);
         this.lastRows = []; // 最后一行
         this.itemLength = 0; // item长度
-        setTimeout(function() {
-            _this.init();
-        }, 50);
+        _this.init();
     }
 
     FlexImage.prototype = {
@@ -116,7 +114,9 @@
             function lastRowFn(rows) {
                 _this.lastRows = rows;
             }
-            _this.setLayout(el, items, o, lastRowFn);
+            setTimeout(function() {
+                _this.setLayout(el, items, o, lastRowFn);
+            })
             // 窗口大小改变时是否更新layout
             if (o.listenResize) {
                 function handleResize() {

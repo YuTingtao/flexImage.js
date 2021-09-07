@@ -9,7 +9,7 @@
         * { margin: 0; padding: 0; }
         h2 { text-align: center; font-size: 24px; margin: 20px 0; }
         .g-wrap { width: 100%; margin: 0 auto; }
-        .demo { overflow: hidden; margin-left: -10px; padding: 0 10px; }
+        .demo { overflow: hidden; padding: 0 10px; margin-left: -10px; }
         .fleximage-item {
             float: left;
             margin-left: 10px;
@@ -65,35 +65,38 @@
     </div>
     <script src="./js/flexImage.js"></script>
     <script>
-        var flexImage = new FlexImage(document.querySelector('.demo'), {
-            rowHeight: 200,
-            listenResize: true
-        });
-        // 动态插入图片，后更新
-        document.querySelector('.btn-append').onclick = function() {
-            var items = [
-                { url: './img/1.jpg', width: 219, height: 180 },
-                { url: './img/2.jpg', width: 279, height: 180 },
-                { url: './img/3.jpg', width: 270, height: 180 },
-                { url: './img/4.jpg', width: 270, height: 180 },
-                { url: './img/5.jpg', width: 147, height: 180 },
-                { url: './img/6.jpg', width: 276, height: 180 },
-                { url: './img/7.jpg', width: 319, height: 180 },
-                { url: './img/8.jpg', width: 270, height: 180 },
-                { url: './img/9.jpg', width: 240, height: 180 },
-                { url: './img/10.jpg', width: 270, height: 180 }
-            ]
-            for (var i = 0; i < items.length; i++ ) {
-                var item = items[i];
-                var child = document.createElement('div');
-                child.className = 'fleximage-item';
-                child.setAttribute('data-w', item.width);
-                child.setAttribute('data-h', item.height);
-                child.innerHTML = '<img src="' + item.url + '">';
-                document.querySelector('.demo').appendChild(child);
+        // 建议用imagesLoaded插件来判断图片是否加载完成，如果DOM宽度是固定的则不需要判断图片是否加载完成
+        window.onload = function() {
+            var flexImage = new FlexImage(document.querySelector('.demo'), {
+                rowHeight: 200,
+                listenResize: true
+            });
+            // 动态插入图片，后更新
+            document.querySelector('.btn-append').onclick = function() {
+                var items = [
+                    { url: './img/1.jpg', width: 219, height: 180 },
+                    { url: './img/2.jpg', width: 279, height: 180 },
+                    { url: './img/3.jpg', width: 270, height: 180 },
+                    { url: './img/4.jpg', width: 270, height: 180 },
+                    { url: './img/5.jpg', width: 147, height: 180 },
+                    { url: './img/6.jpg', width: 276, height: 180 },
+                    { url: './img/7.jpg', width: 319, height: 180 },
+                    { url: './img/8.jpg', width: 270, height: 180 },
+                    { url: './img/9.jpg', width: 240, height: 180 },
+                    { url: './img/10.jpg', width: 270, height: 180 }
+                ]
+                for (var i = 0; i < items.length; i++ ) {
+                    var item = items[i];
+                    var child = document.createElement('div');
+                    child.className = 'fleximage-item';
+                    child.setAttribute('data-w', item.width);
+                    child.setAttribute('data-h', item.height);
+                    child.innerHTML = '<img src="' + item.url + '">';
+                    document.querySelector('.demo').appendChild(child);
+                }
+                flexImage.update();
             }
-            flexImage.update();
-        }
+        };
     </script>
 </body>
 </html>
