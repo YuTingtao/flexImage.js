@@ -27,7 +27,13 @@
         this.opt = this.extend(defaults, options);
         this.lastRows = []; // 最后一行
         this.itemLength = 0; // item长度
-        _this.init();
+        this.init();
+        // 窗口大小改变时是否更新layout
+        if (this.opt.listenResize) {
+            window.addEventListener('resize', function() {
+                _this.setLayout();
+            });
+        }
     }
 
     FlexImage.prototype = {
@@ -54,8 +60,10 @@
                 (Math.round(parseFloat(style.borderRightWidth)) || 0);
         },
         // 设置布局
-        setLayout: function(el, items, o, lastRowFn) {
-            var maxWidth = parseInt(this.getStyle(el).width), // 最大宽度
+        setLayout: function(items) {
+            var elWidth = parseInt(this.getStyle(this.el).width), // 最大宽度
+                o = this.opt,
+                items = items || this.el.querySelectorAll(o.item);
                 rows = [],                 // 行
                 rowWidth = 0,              // 行宽
                 rowHeight = o.rowHeight,   // 行高
@@ -80,18 +88,18 @@
                 rowWidth += itemWidth + this.getMbWidth(item);
                 // 保留最后一行数据
                 if (i == items.length - 1) {
-                    lastRowFn(rows);
+                    this.lastRows = rows;
                 }
-                if (rowWidth >= maxWidth) {
+                if (rowWidth >= elWidth) {
                     var exactWidth = 0;
-                    ratio = (maxWidth - rowMbWidth) / (rowWidth - rowMbWidth);
+                    ratio = (elWidth - rowMbWidth) / (rowWidth - rowMbWidth);
                     rowHeight = Math.round(o.rowHeight * ratio);
                     for (var j = 0; j < rows.length; j++) {
                         newWidth = Math.round(parseInt(rows[j].style.width) * ratio);
                         exactWidth += newWidth + this.getMbWidth(rows[j]);
                         // 计算每行最后一个的宽度
-                        if (exactWidth > maxWidth || exactWidth + rows.length > maxWidth) {
-                            newWidth -= exactWidth - maxWidth;
+                        if (exactWidth > elWidth || exactWidth + rows.length > elWidth) {
+                            newWidth -= exactWidth - elWidth;
                         }
                         // 设置item宽高
                         rows[j].style.width = newWidth + 'px';
@@ -108,22 +116,12 @@
         init: function() {
             var _this = this,
                 el = this.el,
-                o = this.opt;
-            var items = el.querySelectorAll(o.item);
+                o = this.opt,
+                items = el.querySelectorAll(o.item);
             this.itemLength = items.length;
-            function lastRowFn(rows) {
-                _this.lastRows = rows;
-            }
             setTimeout(function() {
-                _this.setLayout(el, items, o, lastRowFn);
-            })
-            // 窗口大小改变时是否更新layout
-            if (o.listenResize) {
-                function handleResize() {
-                    _this.setLayout(el, items, o, lastRowFn);
-                }
-                window.addEventListener('resize', handleResize);
-            }
+                _this.setLayout();
+            }, 0);
             return _this;
         },
         // 更新
@@ -138,18 +136,7 @@
                     newItems.push(items[i]);
                 }
                 this.itemLength = items.length;
-                function lastRowFn(rows) {
-                    _this.lastRows = rows;
-                }
-                _this.setLayout(el, newItems, o, lastRowFn);
-                // 窗口大小改变时是否更新layout
-                if (o.listenResize) {
-                    window.removeEventListener('resize', handleResize);
-                    function handleResize() {
-                        _this.setLayout(el, items, o, lastRowFn);
-                    }
-                    window.addEventListener('resize', handleResize);
-                }
+                _this.setLayout(newItems);
             }
             return _this;
         }

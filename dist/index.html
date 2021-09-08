@@ -9,11 +9,14 @@
         * { margin: 0; padding: 0; }
         h2 { text-align: center; font-size: 24px; margin: 20px 0; }
         .g-wrap { width: 100%; margin: 0 auto; }
-        .demo { overflow: hidden; padding: 0 10px; margin-left: -10px; }
+        .demo { 
+            overflow: hidden;
+            min-height: calc(100vh - 130px);
+            margin: -5px 5px;
+        }
         .fleximage-item {
             float: left;
-            margin-left: 10px;
-            margin-bottom: 10px;
+            margin: 5px;
         }
         .btn-box{
             margin: 20px 0;
@@ -50,14 +53,6 @@
             <div class="fleximage-item" data-w="283" data-h="180"><img src="./img/13.jpg"></div>
             <div class="fleximage-item" data-w="271" data-h="180"><img src="./img/14.jpg"></div>
             <div class="fleximage-item" data-w="258" data-h="180"><img src="./img/15.jpg"></div>
-            <div class="fleximage-item" data-w="219" data-h="180"><img src="./img/1.jpg"></div>
-            <div class="fleximage-item" data-w="279" data-h="180"><img src="./img/2.jpg"></div>
-            <div class="fleximage-item" data-w="270" data-h="180"><img src="./img/3.jpg"></div>
-            <div class="fleximage-item" data-w="270" data-h="180"><img src="./img/4.jpg"></div>
-            <div class="fleximage-item" data-w="147" data-h="180"><img src="./img/5.jpg"></div>
-            <div class="fleximage-item" data-w="276" data-h="180"><img src="./img/6.jpg"></div>
-            <div class="fleximage-item" data-w="319" data-h="180"><img src="./img/7.jpg"></div>
-            <div class="fleximage-item" data-w="270" data-h="180"><img src="./img/8.jpg"></div>
         </div>
         <div class="btn-box">
             <button class="btn-append" type="button">插入数据</button>
@@ -65,38 +60,40 @@
     </div>
     <script src="./js/flexImage.js"></script>
     <script>
-        // 建议用imagesLoaded插件来判断图片是否加载完成，如果DOM宽度是固定的则不需要判断图片是否加载完成
-        window.onload = function() {
-            var flexImage = new FlexImage(document.querySelector('.demo'), {
-                rowHeight: 200,
-                listenResize: true
-            });
-            // 动态插入图片，后更新
-            document.querySelector('.btn-append').onclick = function() {
-                var items = [
-                    { url: './img/1.jpg', width: 219, height: 180 },
-                    { url: './img/2.jpg', width: 279, height: 180 },
-                    { url: './img/3.jpg', width: 270, height: 180 },
-                    { url: './img/4.jpg', width: 270, height: 180 },
-                    { url: './img/5.jpg', width: 147, height: 180 },
-                    { url: './img/6.jpg', width: 276, height: 180 },
-                    { url: './img/7.jpg', width: 319, height: 180 },
-                    { url: './img/8.jpg', width: 270, height: 180 },
-                    { url: './img/9.jpg', width: 240, height: 180 },
-                    { url: './img/10.jpg', width: 270, height: 180 }
-                ]
-                for (var i = 0; i < items.length; i++ ) {
-                    var item = items[i];
-                    var child = document.createElement('div');
-                    child.className = 'fleximage-item';
-                    child.setAttribute('data-w', item.width);
-                    child.setAttribute('data-h', item.height);
-                    child.innerHTML = '<img src="' + item.url + '">';
-                    document.querySelector('.demo').appendChild(child);
-                }
-                flexImage.update();
+        var flexImage = new FlexImage(document.querySelector('.demo'), {
+            rowHeight: 200,
+            listenResize: true
+        });
+        // 动态插入图片，后更新
+        document.querySelector('.btn-append').addEventListener('click', function() {
+            var items = [
+                { url: './img/1.jpg', width: 219, height: 180 },
+                { url: './img/2.jpg', width: 279, height: 180 },
+                { url: './img/3.jpg', width: 270, height: 180 },
+                { url: './img/4.jpg', width: 270, height: 180 },
+                { url: './img/5.jpg', width: 147, height: 180 },
+                { url: './img/6.jpg', width: 276, height: 180 },
+                { url: './img/7.jpg', width: 319, height: 180 },
+                { url: './img/8.jpg', width: 270, height: 180 },
+                { url: './img/9.jpg', width: 240, height: 180 },
+                { url: './img/10.jpg', width: 270, height: 180 },
+                { url: './img/11.jpg', width: 240, height: 180 },
+                { url: './img/12.jpg', width: 270, height: 180 },
+                { url: './img/13.jpg', width: 283, height: 180 },
+                { url: './img/14.jpg', width: 271, height: 180 },
+                { url: './img/15.jpg', width: 258, height: 180 }
+            ];
+            for (var i = 0; i < items.length; i++ ) {
+                var item = items[i];
+                var child = document.createElement('div');
+                child.className = 'fleximage-item';
+                child.setAttribute('data-w', item.width);
+                child.setAttribute('data-h', item.height);
+                child.innerHTML = '<img src="' + item.url + '" alt="">';
+                document.querySelector('.demo').appendChild(child);
             }
-        };
+            flexImage.update();
+        });
     </script>
 </body>
 </html>
