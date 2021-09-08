@@ -34,12 +34,13 @@
 ```
 ### js:
 ```
+// DOM宽度不固定时，初始化时确保滚动条保持显示
 var flexImage = new FlexImage(document.querySelector('.demo'), {
   rowHeight: 200,
   listenResize: true
 });
 // 动态插入图片，后更新
-document.querySelector('.btn-append').onclick = function() {
+document.querySelector('.btn-append').addEventListener('click', function() {
     var items = [
         { url: './img/1.jpg', width: 219, height: 180 },
         { url: './img/2.jpg', width: 279, height: 180 },
@@ -62,7 +63,7 @@ document.querySelector('.btn-append').onclick = function() {
         document.querySelector('.demo').appendChild(child);
     }
     flexImage.update();
-}
+});
 ```
 
 ## 方法
