@@ -68,7 +68,7 @@
                 rowWidth = 0,              // 行宽
                 rowHeight = o.rowHeight,   // 行高
                 rowMbWidth = 0,            // 行水平方向的 margin + border
-                newWidth = 0,              // 最终显示的宽度
+                showWidth = 0,             // 最终显示的宽度
                 ratio = 1;                 // 比例
             // 循环
             for (var i = 0; i < items.length; i++) {
@@ -90,19 +90,20 @@
                 if (i == items.length - 1) {
                     this.lastRows = rows;
                 }
+                // 精确计算行当中的每个item宽度
                 if (rowWidth >= elWidth) {
                     var exactWidth = 0;
                     ratio = (elWidth - rowMbWidth) / (rowWidth - rowMbWidth);
                     rowHeight = Math.round(o.rowHeight * ratio);
                     for (var j = 0; j < rows.length; j++) {
-                        newWidth = Math.round(parseInt(rows[j].style.width) * ratio);
-                        exactWidth += newWidth + this.getMbWidth(rows[j]);
+                        showWidth = Math.round(parseInt(rows[j].style.width) * ratio);
+                        exactWidth += showWidth + this.getMbWidth(rows[j]);
                         // 计算每行最后一个的宽度
                         if (exactWidth > elWidth || exactWidth + rows.length > elWidth) {
-                            newWidth -= exactWidth - elWidth;
+                            showWidth -= exactWidth - elWidth;
                         }
                         // 设置item宽高
-                        rows[j].style.width = newWidth + 'px';
+                        rows[j].style.width = showWidth + 'px';
                         rows[j].style.height = rowHeight + 'px';
                     }
                     // 重置行的数据
@@ -114,20 +115,16 @@
         },
         // 初始化
         init: function() {
-            var _this = this,
-                el = this.el,
+            var el = this.el,
                 o = this.opt,
                 items = el.querySelectorAll(o.item);
             this.itemLength = items.length;
-            setTimeout(function() {
-                _this.setLayout();
-            }, 0);
-            return _this;
+            this.setLayout();
+            return this;
         },
         // 更新
         update: function() {
-            var _this = this,
-                el = this.el,
+            var el = this.el,
                 o = this.opt;
             var items = el.querySelectorAll(o.item);
             if (items && items.length > this.itemLength) {
@@ -136,9 +133,9 @@
                     newItems.push(items[i]);
                 }
                 this.itemLength = items.length;
-                _this.setLayout(newItems);
+                this.setLayout(newItems);
             }
-            return _this;
+            return this;
         }
     }
     
