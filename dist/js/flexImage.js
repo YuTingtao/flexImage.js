@@ -5,15 +5,25 @@
  * author: 735126858@qq.com
  * license: MIT
  */
-;(function(global, factory) {
+;(function(factory) {
     if (typeof define === 'function' && define.amd) {
         define(factory);
-    } else if (typeof exports !== 'undefined') {
+    } else if (typeof exports === 'object') {
         module.exports = factory();
     } else {
-        global.FlexImage = factory();
+        var g;
+        if (typeof window !== 'undefined') {
+            g = window;
+        } else if (typeof global !== 'undefined') {
+            g = global;
+        } else if (typeof self !== 'undefined') {
+            g = self;
+        } else {
+            g = this;
+        }
+        g.FlexImage = factory();
     }
-}(this, (function() {
+})(function() {
     var defaults = {
         rowHeight: 200,          // 每行最大高度
         listenResize: false,     // 是否监听窗口大小改变更新layout
@@ -140,4 +150,4 @@
     }
     
     return FlexImage;
-})));
+});
