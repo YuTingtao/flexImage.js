@@ -5,7 +5,7 @@
  * author: 735126858@qq.com
  * license: MIT
  */
-;(function(factory) {
+;(function(global, factory) {
     if (typeof define === 'function' && define.amd) {
         define(factory);
     } else if (typeof exports === 'object') {
@@ -23,7 +23,7 @@
         }
         g.FlexImage = factory();
     }
-})(function() {
+})(this, (function() {
     var defaults = {
         rowHeight: 200,          // 每行最大高度
         listenResize: false,     // 是否监听窗口大小改变更新layout
@@ -150,4 +150,4 @@
     }
     
     return FlexImage;
-});
+}));
