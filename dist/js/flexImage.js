@@ -1,5 +1,5 @@
 /*
- * flexImage.js 1.0.0
+ * flexImage.js 0.0.1
  * description: 轻量级横向瀑布流插件，无依赖，兼容IE9以上，类似百度图片、谷歌图片展示效果
  * https://github.com/YuTingtao/flexImage.js
  * author: 735126858@qq.com
